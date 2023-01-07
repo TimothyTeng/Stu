@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Profile</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+		<link rel="stylesheet" href="../static/css/profile.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div style="background-color: #FFF6E5;">
+			<nav class="navbarAddition navbar navbar-expand-lg">
+			<div class="container-fluid">
+			<a href="{{url_for('home')}}"><img src="static/images/projectImages/darkStuLogo.png" width="80px" height="auto" alt="Not Found" onerror=this.src="static/images/person.jpeg"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('posting')}}">Posts</a>
+					</li>
+                    <li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('consultations')}}">Consultation</a>
+					</li>
+				</ul>
+			</div>
+			{% if login == False %}
+			<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('login')}}">Login</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('signup')}}">Sign up</a>
+					</li>
+                    <li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('consultations')}}">Consultation</a>
+					</li>
+				</ul>
+			</div>
+			{% else %}
+			<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('profile')}}">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="30" height="30"><path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.847-8.145a2.502 2.502 0 10-1.694 0C5.471 8.261 4 9.775 4 11c0 .395.145.995 1 .995h6c.855 0 1-.6 1-.995 0-1.224-1.47-2.74-3.153-3.145z"></path></svg>
+						{{result}}
+						</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('signout')}}">Sign out</a>
+					</li>
+				</ul>
+				<i class="bi bi-person-circle"></i>
+			</div>
+			{% endif %}
+			</div>
+			</nav>
+        </div>
+		</br>
+		
+		<div class="card container-sm">
+			<img src="{{image}}" class="profImg" alt="Not Found" onerror=this.src="static/images/person.jpeg">
+			<div class="card-body">
+				<h5 class="card-title">{{username}}</h5>
+				<p class="card-text">Email: {{email}}</p>
+				<p class="card-text">Year: {{year}}</p>
+				<a href="{{url_for('editProfile')}}" class="btn btn-primary">Update</a>
+			</div>
+		</div>
+	</body>
+</html>

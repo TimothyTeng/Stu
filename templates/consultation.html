@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+		<link rel="stylesheet" href="../static/css/consultation.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div style="background-color: #FFF6E5;">
+			<nav class="navbarAddition navbar navbar-expand-lg">
+			<div class="container-fluid">
+			<a href="{{url_for('home')}}"><img src="static/images/projectImages/darkStuLogo.png" width="80px" height="auto" alt="Not Found" onerror=this.src="static/images/person.jpeg"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('posting')}}">Posts</a>
+					</li>
+                    <li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('consultations')}}">Consultation</a>
+					</li>
+				</ul>
+			</div>
+			{% if login == False %}
+			<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('login')}}">Login</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('signup')}}">Sign up</a>
+					</li>
+                    <li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('consultations')}}">Consultation</a>
+					</li>
+				</ul>
+			</div>
+			{% else %}
+			<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('profile')}}">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="30" height="30"><path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.847-8.145a2.502 2.502 0 10-1.694 0C5.471 8.261 4 9.775 4 11c0 .395.145.995 1 .995h6c.855 0 1-.6 1-.995 0-1.224-1.47-2.74-3.153-3.145z"></path></svg>
+						{{result}}
+						</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('signout')}}">Sign out</a>
+					</li>
+				</ul>
+				<i class="bi bi-person-circle"></i>
+			</div>
+			{% endif %}
+			</div>
+			</nav>
+        </div>
+        <hr>
+        <h1 class="text">My lessons</h1>
+        <div class="content">
+            {% for classes in consultations %}
+                {% if classes[1] == email %}
+                <div class="cardSize card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">{{classes[6]}}</h5>
+                        <span class="badge text-bg-primary">{{classes[9]}}</span>
+                        <span class="badge text-bg-success">{{classes[3]}}</span>
+                        <p class="card-text">Consultation capacity: {{classes[4]}}/{{classes[5]}}</p>
+                        <p class="card-text">Consultation date: {{classes[2][:2]}}/{{classes[2][2:4]}}/{{classes[2][4:]}}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{classes[0]}}">
+                            Consult info
+                        </button>
+                          
+                          <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{classes[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{classes[6]}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span class="badge text-bg-primary">{{classes[9]}}</span>
+                                        <span class="badge text-bg-success">{{classes[3]}}</span>
+                                        </br>
+                                        </br>
+                                        <p class="card-text">Consultation capacity: {{classes[4]}}/{{classes[5]}}</p>
+                                        <p class="card-text">Consultation date: {{classes[2][:2]}}/{{classes[2][2:4]}}/{{classes[2][4:]}}</p>
+                                        <p class="card-text">Description: {{classes[7]}}</p>
+                                        <div class="textForm">
+                                            <form>
+                                                <input class="form-control" type="text" name="addMessage" id="addMessage{{classes[0]}}" required>
+                                            </form>
+                                            <button onclick="sendRequest('{{classes[0]}}')" class="btn btn-primary">Send</button>
+                                        </div>
+                                        <div id="messages{{classes[0]}}">
+                                            {% for message in chat %}
+                                            {% if message[1] == classes[0] %}
+                                            {% if message[4] != result %}
+                                            <div class="cardWidth card">
+                                                <div class="card-body" style="text-align: left;">
+                                                    {{message[4]}}:
+                                                    {{message[2]}}
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="cardWidthMine card">
+                                                <div class="card-body" style="text-align: left;">
+                                                    {{message[4]}}:
+                                                    {{message[2]}}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
+                                    </div>
+                                    
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <form method="POST" action="{{url_for('cancelConsult')}}">
+                                        <input type="hidden" value="{{classes[0]}}" name="ConsultationID">
+                                        <button type="submit" class="btn btn-primary">Cancel Consultation</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                {%endif%}
+            {% endfor %}
+            
+        </div>
+        <hr>
+        <h1 class="text">Consultations signed up</h1>
+        <div class="content">
+            {% for classes in consultations %}
+                {% if classes[1] != email %}
+                {% if classes[0] in signUp %}
+                <div class="cardSize card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">{{classes[6]}}</h5>
+                        <span class="badge text-bg-primary">{{classes[9]}}</span>
+                        <span class="badge text-bg-success">{{classes[3]}}</span>
+                        <p class="card-text">Consultation capacity: {{classes[4]}}/{{classes[5]}}</p>
+                        <p class="card-text">Consultation date: {{classes[2][:2]}}/{{classes[2][2:4]}}/{{classes[2][4:]}}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{classes[0]}}">
+                            Consult info
+                        </button>
+                          
+                          <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{classes[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{classes[6]}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <span class="badge text-bg-primary">{{classes[9]}}</span>
+                                    <span class="badge text-bg-success">{{classes[3]}}</span>
+                                    </br>
+                                    </br>
+                                    <p class="card-text">Consultation capacity: {{classes[4]}}/{{classes[5]}}</p>
+                                    <p class="card-text">Consultation date: {{classes[2][:2]}}/{{classes[2][2:4]}}/{{classes[2][4:]}}</p>
+                                    <p class="card-text">Description: {{classes[7]}}</p>
+                                    <hr>
+                                    <h1 class="modal-title fs-5" style="text-align: left;" id="exampleModalLabel">Chat:</h1>
+                                    <div class="textForm">
+                                        <form>
+                                            <input class="form-control" type="text" name="addMessage" id="addMessage{{classes[0]}}" required>
+                                        </form>
+                                        <button onclick="sendRequest('{{classes[0]}}')" class="btn btn-primary">Send</button>
+                                    </div>
+                                    <div id="messages{{classes[0]}}">
+                                        {% for message in chat %}
+                                        {% if message[1] == classes[0] %}
+                                        {% if message[4] != result %}
+                                            <div class="cardWidth card">
+                                                <div class="card-body" style="text-align: left;">
+                                                    {{message[4]}}:
+                                                    {{message[2]}}
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="cardWidthMine card">
+                                                <div class="card-body" style="text-align: left;">
+                                                    {{message[4]}}:
+                                                    {{message[2]}}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <form method="POST" action="{{url_for('leaveconsult')}}">
+                                        <input type="hidden" value="{{classes[0]}}" name="ConsultationID">
+                                        <button type="submit" class="btn btn-primary">Leave Consult</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                {%endif%}
+                {%endif%}
+            {% endfor %}
+        </div>
+        <hr>
+        <h1 class="text">Classes</h1>
+        <div class="content">
+            <div class="cardSize card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Run a consultation</h5>
+                    <p class="card-text">Start a consultation class specialising in teaching a topic.</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Start a class
+                    </button>
+                      
+                      <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST" action="{{url_for('consultations')}}">
+                                <div class="modal-header">
+                                    <input type="text" class="form-control" aria-describedby="emailHelp" id="title" name="title" placeholder="Consultation Title" required>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <label class="form-label" for="customFile">Subject</label>
+                                    <select onchange="changeSubject()" class="form-select form-select-sm" aria-label=".form-select-sm example" id="subject" name="subject" required>
+                                        <option selected disabled>Subjects</option>
+                                        {% for i in subjects %}
+                                        <option value="{{i[0]}}">{{i[0]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </br>
+                                    <label class="form-label" for="customFile">Topic</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="topic" name='topic' required>
+                                        <option selected disabled>Topics</option>
+                                    </select>
+                                    </br>
+                                    <label>Consultation date:</label>
+                                    <div class="date">
+                                        <input type="number" class="form-control" id="day" name="day" placeholder="Day" aria-label="Day" min="1" max="31" required>
+                                        <span class="input-group-text">/</span>
+                                        <input type="number" class="form-control" id="month" name="month" placeholder="Month" aria-label="Month" min="1" max="12" required>
+                                        <span class="input-group-text">/</span>
+                                        <input type="number" class="form-control" id="year" name="year" placeholder="Year" aria-label="Year" min="1" max="2100" required>
+                                    </div>
+                                    </br>
+                                    <label>Max Capacity</label>
+                                    <input type="number" class="form-control" id="maxCapacity" name="maxCapacity" placeholder="Capacity" aria-label="Capacity" min="1" required>
+                                    </br>
+                                    <label class="form-label">Description</label>
+					                <textarea type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" name="description"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add Class</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% for classes in consultations %}
+                {% if classes[1] != email %}
+                {% if classes[0] not in signUp %}
+                <div class="cardSize card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">{{classes[6]}}</h5>
+                        <span class="badge text-bg-primary">{{classes[9]}}</span>
+                        <span class="badge text-bg-success">{{classes[3]}}</span>
+                        <p class="card-text">Consultation capacity: {{classes[4]}}/{{classes[5]}}</p>
+                        <p class="card-text">Consultation date: {{classes[2][:2]}}/{{classes[2][2:4]}}/{{classes[2][4:]}}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{classes[0]}}">
+                            Join Course
+                        </button>
+                          
+                          <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{classes[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{classes[6]}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <span class="badge text-bg-primary">{{classes[9]}}</span>
+                                    <span class="badge text-bg-success">{{classes[3]}}</span>
+                                    </br>
+                                    </br>
+                                    <p class="card-text">Consultation capacity: {{classes[4]}}/{{classes[5]}}</p>
+                                    <p class="card-text">Consultation date: {{classes[2][:2]}}/{{classes[2][2:4]}}/{{classes[2][4:]}}</p>
+                                    <p class="card-text">Description: {{classes[7]}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <form method="POST" action="{{url_for('consultations')}}">
+                                        <input type="hidden" value="{{classes[0]}}" name="ConsultationID">
+                                        {% if classes[4] == classes[5] %}
+                                        <button type="submit" class="btn btn-primary" disabled>Consult Full</button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                                        {% endif %}
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                {%endif%}
+                {%endif%}
+            {% endfor %}
+            
+        </div>
+        <script>
+            function changeSubject(){
+                var subject = document.getElementById('subject').value;
+                fetch("/getTopics?subject="+subject)
+                .then((response) => response.json())
+                  .then((data) => {
+                    var topicSelect = document.getElementById('topic')
+                    topicSelect.innerHTML= "<option selected disabled>Topics</option>"
+                    for (let i = 0; i < data.length; i++) {
+                        topicSelect.innerHTML=topicSelect.innerHTML+`<option value='${data[i]}'>${data[i]}</option>`
+                    };
+                });
+            };
+            function sendRequest(ConsultationID){
+                var message= document.getElementById('addMessage'+ConsultationID).value;
+                var dataArr = new FormData()
+                dataArr.append('addMessage', message);
+                dataArr.append('ConsultationID', ConsultationID);
+                console.log(dataArr)
+                fetch("/addingconsultationpost", {
+                method: 'POST',
+                body: dataArr
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('addMessage'+ConsultationID).value = "";
+                    var messages = document.getElementById('messages'+ConsultationID);
+                    var email = document.cookie
+                    email = email.slice(7,-1)  
+                    messages.innerHTML = ""
+                    for (let i = 0; i < data.length; i++) {
+                        console.log(email,data[i][2])
+                        if (email == data[i][2]){
+                            messages.innerHTML = messages.innerHTML + `<div class='cardWidthMine card'><div class='card-body' style="text-align: left;">${data[i][3]}: ${data[i][1]}</div></div>`
+                        }
+                        else{
+                            messages.innerHTML = messages.innerHTML + `<div class='cardWidth card'><div class='card-body' style="text-align: left;">${data[i][3]}: ${data[i][1]}</div></div>`
+                        }
+                        }
+                    }); 
+            };
+        </script>
+    </body>
+</html>

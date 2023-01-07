@@ -1,0 +1,126 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "Montserrat",sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Oswald",sans-serif;
+    font-weight: bold;
+}
+.homeImage{
+    width: 100%;
+}
+body{
+    background-color: #F8E0CC !important;
+}
+.navbarAddition{
+    width: 90%;
+    margin: auto;
+    padding: 35px 0;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbarText{
+    margin: 0 10px;
+}
+
+a {
+    /* add a transition effect to the color and background-color properties */
+    transition: color 0.2s, transform 0.2s, transform-origin 0.2s;
+    color: black !important;
+    transform-origin: center;
+  }
+  
+a:hover {
+    /* change the color and background-color when the link is hovered over */
+    color: #7395AE !important;
+    transform: scale(1.2);
+  }
+#wrapper{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    margin-right: 20px;
+    gap: 10px;
+    width: 70%;
+}
+
+.searchbox{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+.searchbar{
+    width:79%;
+}
+.filter{
+    width:100%;
+}
+
+.postsize{
+    width: 100%;
+}
+
+.sidenav{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 30%;
+    justify-content: flex-start;
+}
+.main{
+    display:flex;
+    align-items: flex-start;
+}
+
+.image{
+    display: block;
+    width: 40%;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.imageModal{
+    display: block;
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.CardFormat{
+    margin:10px;
+}
+
+.imageSize{
+    margin-bottom: 10px;
+}
+
+.text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+            line-clamp: 4; 
+    -webkit-box-orient: vertical;
+    white-space: pre-wrap;
+ }
+
+.btnMargin{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.text-space{
+    white-space: pre-wrap;
+}

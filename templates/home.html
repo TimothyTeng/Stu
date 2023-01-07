@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+		<link rel="stylesheet" href="../static/css/home.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div class="banner">
+			<nav class="navbarAddition navbar navbar-expand-lg">
+			<div class="container-fluid">
+			<a href="{{url_for('home')}}"><img src="static/images/projectImages/whiteStuLogo.png" width="80px" height="auto" alt="Not Found" onerror=this.src="static/images/person.jpeg"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('posting')}}">Posts</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link active" aria-current="page" href="{{url_for('consultations')}}">Consultation</a>
+					</li>
+				</ul>
+			</div>
+			{% if login == False %}
+			<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('login')}}">Login</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('signup')}}">Sign up</a>
+					</li>
+				</ul>
+			</div>
+			{% else %}
+			<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('profile')}}">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="30" height="30"><path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.847-8.145a2.502 2.502 0 10-1.694 0C5.471 8.261 4 9.775 4 11c0 .395.145.995 1 .995h6c.855 0 1-.6 1-.995 0-1.224-1.47-2.74-3.153-3.145z"></path></svg>
+						{{result}}
+						</a>
+					</li>
+					<li class="navbarText nav-item">
+						<a class="Text nav-link" href="{{url_for('signout')}}">Sign out</a>
+					</li>
+				</ul>
+				<i class="bi bi-person-circle"></i>
+			</div>
+			{% endif %}
+			</div>
+			</nav>
+			<div class="content">
+				<h1><span class="coloured">Stu</span>dent teachers</h1>
+				<p>Providing a platform for students to utilizing their knowledge to teach others,</br> while also building upon their own ideas.</p>
+				<div>
+					<button class="buttonlook" type="button" onclick="location.href='#learnMore';"><span class="spanbutton"></span>Learn More</button>
+					{% if login==False %}
+					<button class="buttonlook" type="button" onclick="location.href='/signup';"><span class="spanbutton"></span>Sign Up!</button>
+					{% else %}
+					<button class="buttonlook" type="button" onclick="location.href='/posts';"><span class="spanbutton"></span>Start Helping!</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="section1" id="learnMore">
+			<section class="hidden">
+				<div class="section1div1">
+					<img src="static/images/projectImages/teaching.png" class="whatImage">
+				</div>
+				<div class="section1div2">
+					<h1>The Protégé Effect?</h1>
+					<p>The protégé effect is a psychological phenomenon where teaching or preparing to teach information to others helps a person learn that information. </br></br>For example, a student could benefit from the protégé effect by familiarising and improve their understanding of the material enough to be able to teach others. As they teach others, the student needs to have enough knowledge to be able to summarise the topic and answer questions posed by their peers. In such a way, both the student teacher and their peers benefit.</p>
+				</div>
+			</section>
+		</div>
+		<div class="features"> 
+			<div class="featureHeaders">
+				<h1>Features</h1>
+				<p>Stu aims to provide a condusive space for students to both ask for help and provide assistance to each other. </br>Stu is able to facilitate this through 2 main modes:</p>
+			</div>
+			<div class="cardDiv">
+				<div class="card cardSize1">
+					<div class="card-body">
+						<img src="static/images/projectImages/discussion.png" class="card-img-top">
+					  	<h5 class="card-title">The Question Board</h5>
+					  	<p class="card-text">Welcome to our student posting page!</br></br> Ask and receive answers from other students. Let's make learning easier and more collaborative!</p>
+					  	<a href="{{url_for('posting')}}" class="stretched-link"></a>
+					</div>
+				</div>
+				<div class="card cardSize2">
+					<div class="card-body">
+						<img src="static/images/projectImages/consultation.png" class="card-img-top">
+						<h5 class="card-title">Connect and Learn with Peers</h5>
+						<p class="card-text">Welcome to our student consultation service!</br></br> Start a consultation and connect with peers to learn or teach any topic. Let's grow together!</p>
+						<a href="{{url_for('consultations')}}" class="stretched-link"></a>
+					</div>
+				  </div>
+			</div>
+		</div>
+	</body>
+	<script defer>
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry)=>{
+				if (entry.isIntersecting) {
+					entry.target.classList.add('show');
+				}
+			})
+		});
+
+		const hiddenElements = document.querySelectorAll('.hidden');
+		hiddenElements.forEach((el) => observer.observe(el))
+	</script>
+</html>

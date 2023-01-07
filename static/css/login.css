@@ -1,0 +1,47 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "Montserrat",sans-serif;
+}
+body{
+    background-color: #F8E0CC !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Oswald",sans-serif;
+    font-weight: bold;
+}
+
+.homeImage{
+    width: 100%;
+}
+
+.navbarAddition{
+    width: 90%;
+    margin: auto;
+    padding: 35px 0;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbarText{
+    margin: 0 10px;
+}
+
+a {
+    /* add a transition effect to the color and background-color properties */
+    transition: color 0.2s, transform 0.2s, transform-origin 0.2s;
+    color: black !important;
+    transform-origin: center;
+  }
+  
+a:hover {
+    /* change the color and background-color when the link is hovered over */
+    color: #7395AE !important;
+    transform: scale(1.2);
+  }
